@@ -14,7 +14,7 @@ Clone the project with a terminal as below
 https://github.com/BrunoNicholas/helper-board.git
 ```
 
-create a new database with the user name and password to be replace in ```backend\__init__.py``` as ```app.config['SQLALCHEMY_DATABASE_URI'] = 'YOUR_DB_PATH_AND_USER_CREDENTIALS'```
+create a new database with the username and password to be replaced in ```backend\__init__.py``` as ```app.config['SQLALCHEMY_DATABASE_URI'] = 'YOUR_DB_PATH_AND_USER_CREDENTIALS'```
 
 Once you are done, you can then create a new virtual environment as;
 
@@ -53,8 +53,12 @@ Please follow the steps to run the frontend instance
 
 ## Available end points
 
-| **Method** | **URL** | **Parameters/Body** | **Response** | **Description** |
-|------------|-------------|---------------|--------------------|
+| **Method**  | **URL** | **Parameters/Body** | **Response** | **Description** |
+| ------------- | --------------- | ----------------- | ---------------------- | --- |
 | GET  | /   |     |    | Entry point |
 | GET  | /api/v1/  |    |    | v1 of the API |
 | POST | /api/v1/login | email, password | token, message, user | Loggin in Route |
+
+## License
+
+MIT
