@@ -53,10 +53,12 @@ Please follow the steps to run the frontend instance
 
 ## Available end points
 
+If we have out base URL as ```http://0.0.0.0:5050```, you can append the endpoints below to archive the goal
+
 | **Method**  | **URL** | **Parameters/Body** | **Response** | **Description** |
 | ------------- | --------------- | ----------------- | ---------------------- | --- |
 | GET  | /   |     |    | Entry point |
-| GET  | /api/v1/  |    |    | v1 of the API |
+| GET  | /api/v1/  |    |    | v1 of the API, same as /api |
 | POST | /api/v1/login | email, password | token, message, user | Loggin in Route |
 
 ## License
