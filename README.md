@@ -53,6 +53,8 @@ Please follow the steps to run the frontend instance
 
 ## Available end points
 
-| ***Method*** | ***URL*** | ***Parameters / Body*** | ***Response*** | ***Description*** |
-|------|------|------|------|
-| GET | / | | | Entry point |
+| **Method** | **URL** | **Parameters/Body** | **Response** | **Description** |
+|------------|-------------|---------------|--------------------|
+| GET  | /   |     |    | Entry point |
+| GET  | /api/v1/  |    |    | v1 of the API |
+| POST | /api/v1/login | email, password | token, message, user | Loggin in Route |
