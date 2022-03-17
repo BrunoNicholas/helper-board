@@ -7,8 +7,9 @@ import os
 app = Flask(__name__)
 
 # app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SECRET_KEY'] = 'MMOQLDpZOgsF1sFjx4nitkbheSNzPqGIt1+X3h1vPPQ='
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://bruno:dollar@localhost/db_test_py'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
 
