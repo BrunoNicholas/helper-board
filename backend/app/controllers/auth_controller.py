@@ -16,16 +16,24 @@ def token_required(f):
 
         # return 401 if token is not passed
         if not token:
-            return jsonify({'message': 'Token is missing !!'}), 401
+            return jsonify({
+                'error': 'Token is missing!'
+            }), 401
 
         try:
             # decoding the payload to fetch the stored details
             data = jwt.decode(token, app.config['SECRET_KEY'])
             current_user = User.query.filter_by(public_id=data['public_id']).first()
 
-        except ValueError:
+            if not current_user:
+                return jsonify({
+                    'error': 'Session expired!'
+                }), 419
+
+        except jwt.ExpiredSignature:
             return jsonify({
-                'message': 'Token is invalid !!'
+                'message': 'Session timed out!',
+                'error': 'Token provided is either invalid or expired'
             }), 401
 
         return f(current_user, *args, **kwargs)
