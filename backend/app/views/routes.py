@@ -3,7 +3,7 @@ import uuid
 import jwt
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
-from ..controllers.auth_controller import UserAuth
+from ..controllers.auth_controller import token_required
 from ..models.user import User
 from app import app, db
 
@@ -24,22 +24,22 @@ def index():
 
 # this route sends back list of users
 @system_app.route('/user', methods=['GET'])
-@UserAuth.token_required
-def get_all_users():
+@token_required
+def get_all_users(current_user):
     # querying the database for all the entries in it
     users = User.query.all()
 
     # converting the query objects to list of jsons
     output = []
+
     for user in users:
-        # appending the user data json to the response list
         output.append({
             'public_id': user.public_id,
             'name': user.name,
             'email': user.email
         })
 
-    return jsonify({'users': output})
+    return jsonify({'users': output}), 200
 
 
 @system_app.route('/login', methods=['GET'])
@@ -88,7 +88,22 @@ def login():
             'exp': datetime.utcnow() + timedelta(minutes=30)
         }, app.config['SECRET_KEY'])
 
-        return make_response(jsonify({'token': token.decode('UTF-8')}), 201)
+        return make_response(
+            jsonify({
+                'message': 'Logged in successfully',
+                'user': {
+                    'name': user.name,
+                    'email': user.email,
+                    'is_admin': user.is_admin,
+                    'is_developer': user.is_dev,
+                    'is_student': user.is_student,
+                    'created': user.created_at,
+                    'last_update': user.updated_at
+                },
+                'token': token
+            }),
+            201
+        )
 
     return jsonify({
         'errors': [
@@ -149,7 +164,11 @@ def signup():
         # insert user
         db.session.add(user)
         db.session.commit()
-        return make_response('Successfully registered.', 201)
+        return jsonify({
+            'message': 'Successfully registered.'
+        }), 201
 
     else:
-        return make_response('User already exists. Please Log in.', 202)
+        return jsonify({
+            'message': 'User already exists. Please log in.'
+        }), 202
