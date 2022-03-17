@@ -13,9 +13,9 @@ class User(db.Model):
     is_dev = db.Column(db.Integer(), nullable=True)
     is_student = db.Column(db.Integer(), nullable=True)
     status = db.Column(db.String(100), nullable=True)
-    deleted_at = db.Column(db.Date(), nullable=True)
-    created_at = db.Column(db.Date(), nullable=True)
-    updated_at = db.Column(db.Date(), nullable=True)
+    deleted_at = db.Column(db.TIMESTAMP(), nullable=True)
+    created_at = db.Column(db.TIMESTAMP(), nullable=True)
+    updated_at = db.Column(db.TIMESTAMP(), nullable=True)
 
     def __init__(self, name, email, password, is_admin, status, is_dev, is_student, deleted_at=None, created_at=None,
                  updated_at=None):
