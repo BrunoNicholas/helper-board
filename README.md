@@ -38,3 +38,21 @@ use ```flask db init``` to initialize the connection
 use ```flask db migrate``` to create the migrations
 
 use ```flask db upgrade``` to do the actual migrations
+
+Now you can run
+
+```bash
+python app.py
+```
+
+To run the local server which the frontend will listen to
+
+### For Front end
+
+Please follow the steps to run the frontend instance
+
+## Available end points
+
+| ***METHOD*** | ***URL*** | ***Parameters / Body*** | ***Response*** | ***Description*** |
+|------|------|------|------|
+| GET | / | | | Entry point |
