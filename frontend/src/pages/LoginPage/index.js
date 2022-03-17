@@ -26,8 +26,9 @@ import {
                 <Button
                   className="btn-neutral btn-icon"
                   color="default"
-                  href="#pablo"
+                  href="/auth/github"
                   onClick={(e) => e.preventDefault()}
+                  styleName={{"cursor":"pointer"}}
                 >
                   <span className="btn-inner--icon">
                     <img
@@ -43,8 +44,9 @@ import {
                 <Button
                   className="btn-neutral btn-icon"
                   color="default"
-                  href="#pablo"
+                  href="/auth/google"
                   onClick={(e) => e.preventDefault()}
+                  styleName={{"cursor":"pointer"}}
                 >
                   <span className="btn-inner--icon">
                     <img
@@ -59,7 +61,7 @@ import {
                 </Button>
               </div>
             </CardHeader>
-            <CardBody className="px-lg-5 py-lg-5">
+            <CardBody className="px-lg-5 py-lg-4">
               <div className="text-center text-muted mb-4">
                 <small>Or sign in with credentials</small>
               </div>
@@ -126,8 +128,9 @@ import {
             <Col className="text-right" xs="6">
               <a
                 className="text-light"
-                href="#pablo"
+                href="/auth/register"
                 onClick={(e) => e.preventDefault()}
+                styleName={{"cursor":"pointer"}}
               >
                 <small>Create new account</small>
               </a>

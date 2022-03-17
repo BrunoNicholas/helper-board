@@ -19,7 +19,7 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-const Index = (props) => {
+const Index = () => {
   const [activeNav, setActiveNav] = useState(1);
 
   const toggleNavs = (e, index) => {

@@ -1,16 +1,16 @@
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    FormGroup,
-    Form,
-    Input,
-    Container,
-    Row,
-    Col,
-  } from "reactstrap";
-  import UserHeader from "components/Headers/UserHeader.js";
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Container,
+  Row,
+  Col,
+} from "reactstrap";
+import UserHeader from "components/Headers/UserHeader.js";
   
   const Profile = () => {
     return (
@@ -29,7 +29,7 @@ import {
                           alt="..."
                           className="rounded-circle"
                           src={
-                            require("../../assets/img/theme/team-4-800x800.jpg")
+                            require("../../../assets/img/theme/team-4-800x800.jpg")
                               .default
                           }
                         />
