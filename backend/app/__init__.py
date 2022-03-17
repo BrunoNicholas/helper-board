@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 # app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://bruno:dollar@localhost/db_test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://bruno:dollar@localhost/db_test_py'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -17,6 +17,7 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 from .models.user import User
 from .models.message import Message
+from .models.location import Location
 
 from .views.routes import system_app
 
