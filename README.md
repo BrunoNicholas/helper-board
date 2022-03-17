@@ -53,6 +53,6 @@ Please follow the steps to run the frontend instance
 
 ## Available end points
 
-| ***METHOD*** | ***URL*** | ***Parameters / Body*** | ***Response*** | ***Description*** |
+| ***Method*** | ***URL*** | ***Parameters / Body*** | ***Response*** | ***Description*** |
 |------|------|------|------|
 | GET | / | | | Entry point |
