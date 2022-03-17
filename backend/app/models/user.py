@@ -14,12 +14,13 @@ class User(db.Model):
     is_student = db.Column(db.Integer(), nullable=True)
     public_id = db.Column(db.String(100), unique=True)
     status = db.Column(db.String(100), nullable=True)
+    active_person = db.Column(db.BIGINT(), nullable=True)
     deleted_at = db.Column(db.TIMESTAMP(), nullable=True)
     created_at = db.Column(db.TIMESTAMP(), nullable=True)
     updated_at = db.Column(db.TIMESTAMP(), nullable=True)
 
-    def __init__(self, name, email, password, is_admin, public_id, status, is_dev, is_student, deleted_at=None,
-                 created_at=None, updated_at=None):
+    def __init__(self, name, email, password, is_admin, public_id, status, is_dev, is_student, active_person,
+                 deleted_at=None, created_at=None, updated_at=None):
         self.name = name
         self.email = email
         self.password = password
@@ -28,6 +29,7 @@ class User(db.Model):
         self.is_student = is_student
         self.public_id = public_id
         self.status = status
+        self.active_person = active_person
         self.deleted_at = deleted_at
         self.created_at = created_at
         self.updated_at = updated_at

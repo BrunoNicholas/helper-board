@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, make_response
+from flask import Blueprint, jsonify, request
 import uuid
 import jwt
 from datetime import datetime, timedelta
@@ -22,24 +22,42 @@ def index():
     return jsonify(data), 200
 
 
-# this route sends back list of users
+# get current user
 @system_app.route('/user', methods=['GET'])
 @token_required
-def get_all_users(current_user):
-    # querying the database for all the entries in it
-    users = User.query.all()
+def get_current_users(current_user):
+    if 'x-access-token' in request.headers:
+        try:
+            token = request.headers['x-access-token']
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = User.query.filter_by(public_id=data['public_id']).first()
 
-    # converting the query objects to list of jsons
-    output = []
+            messages = []
+            location = {}
+            chat_user = {}
 
-    for user in users:
-        output.append({
-            'public_id': user.public_id,
-            'name': user.name,
-            'email': user.email
-        })
+            if current_user:
+                return jsonify({
+                    'name': current_user.name,
+                    'email': current_user.email,
+                    'is_admin': True if current_user.is_admin else False,
+                    'is_dev': True if current_user.is_dev else False,
+                    'is_student': True if current_user.is_student else False,
+                    'status': current_user.status,
+                    'deleted': True if current_user.deleted_at else False,
+                    'created': current_user.created_at,
+                    'last_update': current_user.updated_at,
+                    'in_chat': True if current_user.active_person else False,
+                    'chat_user': chat_user,
+                    'location': location,
+                    'messages': messages
 
-    return jsonify({'users': output}), 200
+                }), 200
+
+        except jwt.ExpiredSignature:
+            return jsonify({'error': 'session timed out'}), 403
+
+    return jsonify({'error': 'session timed out'}), 403
 
 
 @system_app.route('/login', methods=['GET'])
@@ -55,6 +73,20 @@ def login():
     # creates dictionary of form data
     data = request.form
     errors = []
+
+    if 'x-access-token' in request.headers:
+        try:
+            token = request.headers['x-access-token']
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = User.query.filter_by(public_id=data['public_id']).first()
+
+            if current_user:
+                return jsonify({
+                    'message': 'Hey {}, you are already logged in.'.format(current_user.name)
+                }), 301
+
+        except jwt.ExpiredSignature:
+            pass
 
     if not data:
         errors.append({'input': ['No content is submitted']})
@@ -134,10 +166,9 @@ def signup():
 
     name, email = data.get('name'), data.get('email')
     password = data.get('password')
-    is_admin = data.get('is_admin')
-    is_dev = data.get('is_dev')
-    is_student = data.get('is_student')
+    is_admin, is_dev, is_student = data.get('is_admin'), data.get('is_dev'), data.get('is_student')
     status = data.get('status')
+    active_person = data.get('is_student')
     created_at = datetime.now()
     updated_at = datetime.now()
 
@@ -155,14 +186,16 @@ def signup():
             is_dev=is_dev,
             is_student=is_student,
             status=status,
+            active_person=active_person,
             created_at=created_at,
             updated_at=updated_at
         )
         # insert user
         db.session.add(user)
         db.session.commit()
+
         return jsonify({
-            'message': 'Successfully registered.'
+            'message': 'User successfully registered. You can login'
         }), 201
 
     else:

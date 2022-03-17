@@ -21,12 +21,13 @@ from .models.message import Message
 from .models.location import Location
 
 from .views.routes import system_app
+from .views.r_users import users_app
 
 # db.create_all()
 migrate = Migrate(app, db)
 
 app.register_blueprint(system_app, url_prefix="/api/v1")
-
+app.register_blueprint(users_app, url_prefix="/api/v1")
 
 @app.route('/', methods=['GET'])
 def welcome():
