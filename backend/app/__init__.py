@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import sys
 import os
 
@@ -11,8 +12,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# db.create_all()
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
@@ -20,6 +19,9 @@ from .models.user import User
 from .models.message import Message
 
 from .views.routes import system_app
+
+# db.create_all()
+migrate = Migrate(app, db)
 
 app.register_blueprint(system_app, url_prefix="/api/v1")
 
@@ -82,7 +84,3 @@ def not_allowed(error):
     print(error)
     return jsonify({'error': '{}!'.format(error), 'status': 403}), 403
 
-
-# register a blueprint for the version
-# with the API standard
-app.register_blueprint(system_app, url_prefix="/api/v1")
