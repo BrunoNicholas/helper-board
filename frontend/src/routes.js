@@ -1,8 +1,9 @@
-import Index from "pages/Index.js";
-import Profile from "pages/DashboardPage/ProfilePage/index.js";
+import Index from "pages/index.js";
+import Profile from "pages/dashboard/ProfilePage/index.js";
+import Message from "pages/dashboard/MessagePage/index.js";
+import Notification from "pages/dashboard/NotificationPage/index.js";
 import Register from "pages/RegisterPage/index.js";
 import Login from "pages/LoginPage/index.js";
-import Icons from "pages/examples/Icons.js";
 
 var routes = [
   {
@@ -13,17 +14,24 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin",
-  },
-  {
     path: "/user-profile",
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
+    layout: "/admin",
+  },
+  {
+    path: "/user-messages",
+    name: "Chat Messages",
+    icon: "ni ni-single-02 text-yellow",
+    component: Message,
+    layout: "/admin",
+  },
+  {
+    path: "/user-notifications",
+    name: "User Notifications",
+    icon: "ni ni-single-02 text-yellow",
+    component: Notification,
     layout: "/admin",
   },
   {
