@@ -85,25 +85,22 @@ def login():
         # generates the JWT Token
         token = jwt.encode({
             'public_id': user.public_id,
-            'exp': datetime.utcnow() + timedelta(minutes=30)
+            'exp': datetime.utcnow() + timedelta(minutes=60)
         }, app.config['SECRET_KEY'])
 
-        return make_response(
-            jsonify({
-                'message': 'Logged in successfully',
-                'user': {
-                    'name': user.name,
-                    'email': user.email,
-                    'is_admin': user.is_admin,
-                    'is_developer': user.is_dev,
-                    'is_student': user.is_student,
-                    'created': user.created_at,
-                    'last_update': user.updated_at
-                },
-                'token': token
-            }),
-            201
-        )
+        return jsonify({
+            'message': 'Logged in successfully. Welcome back {}'.format(user.name),
+            'user': {
+                'name': user.name,
+                'email': user.email,
+                'is_admin': user.is_admin,
+                'is_developer': user.is_dev,
+                'is_student': user.is_student,
+                'created': user.created_at,
+                'last_update': user.updated_at
+            },
+            'token': token.decode('UTF-8')
+        }), 201
 
     return jsonify({
         'errors': [
@@ -111,7 +108,7 @@ def login():
                 'password': ['Invalid password provided. Please try again']
             }
         ]
-    }), 404
+    }), 401
 
 
 # signup route

@@ -59,7 +59,7 @@ If we have out base URL as ```http://0.0.0.0:5050```, you can append the endpoin
 | ------------- | --------------- | ----------------- | ---------------------- | --- |
 | GET  | /   |     |    | Entry point |
 | GET  | /api/v1/  |    |    | v1 of the API, same as /api |
-| POST | /api/v1/login | email, password | token, message, user | Loggin in Route |
+| POST | /api/v1/login | email, password | token, message, user | Authenticating a user to receive a token |
 
 ## License
 
