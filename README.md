@@ -57,10 +57,10 @@ If we have out base URL as ```http://0.0.0.0:5050```, you can append the endpoin
 
 | **Method**  | **URL** | **Parameters/Body** | **Response** | **Description** |
 | ------------- | --------------- | ----------------- | ---------------------- | --- |
-| GET  | /   |     |    | Entry point |
-| GET  | /api/v1/  |    |    | v1 of the API, same as /api |
+| GET  | /   |     | message  | Entry point |
+| GET  | /api/v1/  |    |  message  | v1 of the API, same as /api |
 | POST | /api/v1/login | email, password | token, message, user | Authenticating a user to receive a token |
-| POST | /api/v1/register | name, email, password, is_admin, is_dev, is_student, status, active_person   | message, user | Craetion of a new user account |
+| POST | /api/v1/signup | name, email, password, is_admin, is_dev, is_student, status, active_person   | message, user | Craetion of a new user account |
 | GET | /api/v1/user |  | token, message, user, messages, location, chat_status | A sync profile endpoint for the logged in user |
 | GET | /api/v1/users |  | message, users | A list of all logged in users |
 
