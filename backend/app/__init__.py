@@ -29,6 +29,7 @@ migrate = Migrate(app, db)
 app.register_blueprint(system_app, url_prefix="/api/v1")
 app.register_blueprint(users_app, url_prefix="/api/v1")
 
+
 @app.route('/', methods=['GET'])
 def welcome():
     data = {
@@ -87,3 +88,28 @@ def not_allowed(error):
     print(error)
     return jsonify({'error': '{}!'.format(error), 'status': 403}), 403
 
+
+@app.errorhandler(500)
+def server_error(error):
+    """
+    Gives error message when a resource is restricted from the user access.
+    Args:
+        error (string):
+    Returns:
+        Error message.
+    """
+    print(error)
+    return jsonify({'error': '{}!'.format(error), 'status': 500}), 500
+
+
+@app.errorhandler(504)
+def server_timeout(error):
+    """
+    Gives error message when a resource is restricted from the user access.
+    Args:
+        error (string):
+    Returns:
+        Error message.
+    """
+    print(error)
+    return jsonify({'error': '{}!'.format(error), 'status': 504}), 504
