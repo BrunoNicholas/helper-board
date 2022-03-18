@@ -53,7 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.5.4",
+    "babel-eslint": "^10.0.2",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9"
   },
