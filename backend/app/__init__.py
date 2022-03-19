@@ -19,15 +19,22 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 from .models.user import User
 from .models.message import Message
 from .models.location import Location
+from .models.notification import Notification
 
 from .views.routes import system_app
 from .views.r_users import users_app
+from .views.r_messages import messages_app
+from .views.r_locations import locations_app
+from .views.r_notifications import notifications_app
 
 # db.create_all()
 migrate = Migrate(app, db)
 
 app.register_blueprint(system_app, url_prefix="/api/v1")
 app.register_blueprint(users_app, url_prefix="/api/v1")
+app.register_blueprint(messages_app, url_prefix="/api/v1")
+app.register_blueprint(locations_app, url_prefix="/api/v1")
+app.register_blueprint(notifications_app, url_prefix="/api/v1")
 
 
 @app.route('/', methods=['GET'])

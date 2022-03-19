@@ -40,9 +40,9 @@ def get_current_users(current_user):
                 return jsonify({
                     'name': current_user.name,
                     'email': current_user.email,
-                    'is_admin': True if current_user.is_admin else False,
-                    'is_dev': True if current_user.is_dev else False,
-                    'is_student': True if current_user.is_student else False,
+                    'admin': True if current_user.is_admin else False,
+                    'developer': True if current_user.is_dev else False,
+                    'student': True if current_user.is_student else False,
                     'status': current_user.status,
                     'deleted': True if current_user.deleted_at else False,
                     'created': current_user.created_at,

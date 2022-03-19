@@ -1,16 +1,16 @@
-from ..models.message import Message
+from ..models.notification import Notification
 
 
 def index(user_id=None, user_type=None):
-    messages = Message.query.all()
+    notifications = Notification.query.all()
     output = []
 
     if user_id and user_type is 'developer' or user_id and user_type is 'student':
-        for message in messages:
+        for message in notifications:
             if message.user_from_id is user_id or message.user_to_id is user_id:
                 output.append({
                     'id': message.id,
-                    'message': message.message,
+                    'message': message.notification,
                     'category': message.cetegory,
                     'from': message.user_from_id,
                     'to': message.user_to_id,
@@ -21,10 +21,10 @@ def index(user_id=None, user_type=None):
                 })
 
     else:
-        for message in messages:
+        for message in notifications:
             output.append({
                 'id': message.id,
-                'message': message.message,
+                'message': message.notification,
                 'category': message.cetegory,
                 'from': message.user_from_id,
                 'to': message.user_to_id,

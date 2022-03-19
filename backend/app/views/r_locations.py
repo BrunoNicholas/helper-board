@@ -2,19 +2,19 @@ from flask import Blueprint, jsonify, request
 import jwt
 from ..models.user import User
 from ..controllers.auth_controller import token_required
-from ..controllers.user_controller import index as user_index
+from ..controllers.location_controller import index as locations_index
 
 from app import app
 
 JSON_MIME_TYPE = 'application/json'
 
-users_app = Blueprint('users_app', __name__)
+locations_app = Blueprint('locations_app', __name__)
 
 
 # this route sends back list of users
-@users_app.route('/users', methods=['GET'])
+@locations_app.route('/locations', methods=['GET'])
 @token_required
-def get_all_users(current_user):
+def get_all_locations(current_user):
     try:
         token = request.headers['x-access-token']
         data = jwt.decode(token, app.config['SECRET_KEY'])
@@ -22,8 +22,8 @@ def get_all_users(current_user):
 
         if current_user.is_admin:
             return jsonify({
-                'users': user_index(),
-                'total': len(user_index())
+                'locations': locations_index(),
+                'total': len(locations_index())
             }), 200
 
         return jsonify({'error': 'Insufficient permissions'}), 403
