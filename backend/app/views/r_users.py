@@ -14,7 +14,7 @@ users_app = Blueprint('users_app', __name__)
 # this route sends back list of users
 @users_app.route('/users', methods=['GET'])
 @token_required
-def get_all_registered_users(current_user):
+def get_all_users(current_user):
     try:
         token = request.headers['x-access-token']
         data = jwt.decode(token, app.config['SECRET_KEY'])

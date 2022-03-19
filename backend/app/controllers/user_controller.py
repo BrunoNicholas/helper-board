@@ -7,6 +7,7 @@ def index():
 
     for user in users:
         output.append({
+            'id': user.id,
             'public_id': user.public_id,
             'name': user.name,
             'email': user.email,
@@ -21,6 +22,22 @@ def index():
         })
 
     return output
+
+
+def store():
+    pass
+
+
+def show():
+    pass
+
+
+def update():
+    pass
+
+
+def destroy():
+    pass
 
 
 class UserController:
