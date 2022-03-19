@@ -1,24 +1,30 @@
 from ..models.user import User
 
 
+def index():
+    users = User.query.all()
+    output = []
+
+    for user in users:
+        output.append({
+            'public_id': user.public_id,
+            'name': user.name,
+            'email': user.email,
+            'admin': True if user.is_admin else False,
+            'developer': True if user.is_dev else False,
+            'student': True if user.is_student else False,
+            'status': user.status,
+            'deleted': True if user.deleted_at else False,
+            'created': user.created_at,
+            'last_update': user.updated_at,
+            'in_chat': True if user.active_person else False
+        })
+
+    return output
+
+
 class UserController:
     user = None
 
     def __init__(self, user=None):
         self.user = user
-
-    def index(self):
-        users = User.query.all()
-
-        # converting the query objects to list of jsons
-        output = []
-
-        for user in users:
-            output.append({
-                'public_id': user.public_id,
-                'name': user.name,
-                'email': user.email,
-                'is_dev': user.is_dev
-            })
-
-        return users

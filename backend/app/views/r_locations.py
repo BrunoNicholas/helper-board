@@ -21,7 +21,7 @@ def get_all_registered_locations(current_user):
         current_user = User.query.filter_by(public_id=data['public_id']).first()
 
         if current_user.is_admin:
-            users = UserController.index()
+            users = index()
             return jsonify({'users': users}), 200
 
         return jsonify({'error': 'Insufficient permissions'}), 403

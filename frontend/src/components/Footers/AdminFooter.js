@@ -27,7 +27,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Creative Tim
+                Bruno Nicholas Sserunkuma
               </NavLink>
             </NavItem>
 
