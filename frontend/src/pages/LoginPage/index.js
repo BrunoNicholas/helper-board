@@ -66,7 +66,7 @@ const Login = () => {
                 color="default"
                 href="/auth/github"
                 onClick={(e) => e.preventDefault()}
-                styleName={{"cursor":"pointer"}}
+                style={{"cursor":"pointer"}}
               >
                 <span className="btn-inner--icon">
                   <img
@@ -84,7 +84,7 @@ const Login = () => {
                 color="default"
                 href="/auth/google"
                 onClick={(e) => e.preventDefault()}
-                styleName={{"cursor":"pointer"}}
+                style={{"cursor":"pointer"}}
               >
                 <span className="btn-inner--icon">
                   <img
@@ -103,7 +103,7 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Sign in with your credentials</small>
             </div>
-            <Form role="form"onSubmit={handleLogin}>
+            <Form role="form" onSubmit={handleLogin}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -173,7 +173,7 @@ const Login = () => {
               className="text-light"
               href="/auth/register"
               onClick={(e) => e.preventDefault()}
-              styleName={{"cursor":"pointer"}}
+              role="button"
             >
               <small>Create new account</small>
             </a>

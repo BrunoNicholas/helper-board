@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
+import ENV from '.env.js';
 
 import routes from "routes.js";
 
@@ -49,7 +50,10 @@ const Auth = (props) => {
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Welcome!</h1>
+                  <h1 className="text-white">
+                    <small> Welcome to the </small>
+                    <br />
+                    <big>{ENV.APP_NAME}</big>!</h1>
                   <p className="text-lead text-light d-none">
                     Use these awesome forms to login or create new account in
                     your project for free.

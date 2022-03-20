@@ -22,12 +22,6 @@ const signup = (email, password) => {
 };
 
 const login = (email, password) => {
-    console.log("Endpoint");
-    console.log(API_URL + Endpoints.routes.login);
-    console.log("Data");
-    console.log(`EMAIL: ${email}, PASSWORD: ${password}`);
-    console.log("Headers");
-    console.log(Endpoints.headers);
     return axios.post(API_URL + Endpoints.routes.login,
         { 'email': email, 'password': password },
         { headers: Endpoints.headers }

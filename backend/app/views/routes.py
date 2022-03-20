@@ -70,8 +70,10 @@ def get_login():
 # route for logging user in
 @system_app.route('/login', methods=['POST'])
 def login():
-    # creates dictionary of form data
-    data = request.form
+    if request.headers.get('Content-Type') is 'application-json':
+        data = request.json
+    else:
+        data = request.form
     errors = []
 
     if 'x-access-token' in request.headers:
@@ -100,7 +102,7 @@ def login():
     if not data or not data.get('email') or not data.get('password'):
         return jsonify({
             'errors': errors
-        }), 200
+        }), 206
 
     user = User.query.filter_by(email=data.get('email')).first()
 
@@ -146,8 +148,11 @@ def login():
 # signup route
 @system_app.route('/signup', methods=['POST'])
 def signup():
-    # creates a dictionary of the form data
-    data = request.form
+    if request.headers.get('Content-Type') is 'application-json':
+        data = request.json
+    else:
+        data = request.form
+
     errors = []
 
     if not data.get('name'):

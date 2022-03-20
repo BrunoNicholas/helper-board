@@ -42,3 +42,14 @@ def get_all_notifications(current_user):
 
     except jwt.ExpiredSignature:
         return jsonify({'error': 'session timed out'}), 401
+
+
+@notifications_app.route('/notifications', methods=['POST'])
+@token_required
+def store_location():
+    if request.headers.get('Content-Type') is 'application-json':
+        data = request.json
+    else:
+        data = request.form
+
+    pass

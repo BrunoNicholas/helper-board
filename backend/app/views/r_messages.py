@@ -42,3 +42,14 @@ def get_all_messages(current_user):
 
     except jwt.ExpiredSignature:
         return jsonify({'error': 'session timed out'}), 401
+
+
+@messages_app.route('/messages', methods=['POST'])
+@token_required
+def store_message():
+    if request.headers.get('Content-Type') is 'application-json':
+        data = request.json
+    else:
+        data = request.form
+
+    pass
