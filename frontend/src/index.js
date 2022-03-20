@@ -8,13 +8,22 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
+import authService from 'services/AuthService';
+
+function routerCheck() {
+  authService.checkIsUserValid();
+  if (localStorage.getItem("userAuthVal") === 'true') {
+    return <Redirect from="/" to="/admin/index" />;
+  }
+  return <Redirect from="/" to="/auth/login" />;
+}
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-      <Redirect from="/" to="/auth/login" />
+      { routerCheck() }
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

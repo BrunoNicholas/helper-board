@@ -70,8 +70,12 @@ def get_login():
 # route for logging user in
 @system_app.route('/login', methods=['POST'])
 def login():
-    # creates dictionary of form data
-    data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
+
     errors = []
 
     if 'x-access-token' in request.headers:
@@ -83,24 +87,31 @@ def login():
             if current_user:
                 return jsonify({
                     'message': 'Hey {}, you are already logged in.'.format(current_user.name)
-                }), 301
+                }), 202
 
         except jwt.ExpiredSignature:
             pass
 
     if not data:
         errors.append({'input': ['No content is submitted']})
+        return jsonify({
+            'errors': errors
+        }), 206
 
     if not data.get('email'):
-        errors.append({'email': ['Your email is required']})
+        errors.append({
+            'email': ['Your email is required']
+        })
 
     if not data.get('password'):
-        errors.append({'password': ['Your password is required']})
+        errors.append({
+            'password': ['Your password is required']
+        })
 
     if not data or not data.get('email') or not data.get('password'):
         return jsonify({
             'errors': errors
-        }), 400
+        }), 206
 
     user = User.query.filter_by(email=data.get('email')).first()
 
@@ -111,23 +122,33 @@ def login():
                     'email': ['No user found with that email, create a new account']
                 }
             ]
-        }), 404
+        }), 203
 
     if check_password_hash(user.password, data.get('password')):
-        # generates the JWT Token
+        # generates the JWT Token, expire in 1 hour
         token = jwt.encode({
             'public_id': user.public_id,
             'exp': datetime.utcnow() + timedelta(minutes=60)
         }, app.config['SECRET_KEY'])
+
+        chat_user = {}
+        location = {}
+        messages = {}
 
         return jsonify({
             'message': 'Logged in successfully. Welcome back {}'.format(user.name),
             'user': {
                 'name': user.name,
                 'email': user.email,
-                'is_admin': user.is_admin,
-                'is_developer': user.is_dev,
-                'is_student': user.is_student,
+                'admin': True if user.is_admin else False,
+                'developer': True if user.is_dev else False,
+                'student': True if user.is_student else False,
+                'status': user.status,
+                'in_chat': True if user.active_person else False,
+                'chat_user': chat_user,
+                'location': location,
+                'messages': messages,
+                'deleted': True if user.deleted_at else False,
                 'created': user.created_at,
                 'last_update': user.updated_at
             },
@@ -135,19 +156,21 @@ def login():
         }), 201
 
     return jsonify({
-        'errors': [
-            {
-                'password': ['Invalid password provided. Please try again']
-            }
-        ]
-    }), 401
+        'errors': [{
+            'password': ['Invalid password provided. Please try again']
+        }]
+    }), 203
 
 
 # signup route
 @system_app.route('/signup', methods=['POST'])
 def signup():
-    # creates a dictionary of the form data
-    data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
+
     errors = []
 
     if not data.get('name'):
@@ -162,7 +185,7 @@ def signup():
     if not data or not data.get('name') or not data.get('email') or not data.get('password'):
         return jsonify({
             'errors': errors
-        }), 400
+        }), 206
 
     name, email = data.get('name'), data.get('email')
     password = data.get('password')

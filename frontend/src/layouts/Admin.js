@@ -5,8 +5,17 @@ import { Container } from "reactstrap";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
+import authService from 'services/AuthService';
 
 import routes from "routes.js";
+
+const DashPager = () => {
+  authService.checkIsUserValid();
+  if (localStorage.getItem("userAuthVal") === 'false') {
+    return <Redirect to="/auth/login" />;
+  }
+  return<></>;
+}
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
@@ -48,6 +57,7 @@ const Admin = (props) => {
 
   return (
     <>
+      <DashPager />
       <Sidebar
         {...props}
         routes={routes}

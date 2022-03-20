@@ -30,3 +30,15 @@ def get_all_locations(current_user):
 
     except jwt.ExpiredSignature:
         return jsonify({'error': 'session timed out'}), 401
+
+
+@locations_app.route('/locations', methods=['POST'])
+@token_required
+def store_location():
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
+
+    pass

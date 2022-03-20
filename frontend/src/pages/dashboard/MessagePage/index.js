@@ -1,14 +1,14 @@
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    FormGroup,
-    Form,
-    Input,
+    // Button,
+    // Card,
+    // CardHeader,
+    // CardBody,
+    // FormGroup,
+    // Form,
+    // Input,
+    // Col,
     Container,
     Row,
-    Col,
   } from "reactstrap";
   import UserHeader from "components/Headers/UserHeader.js";
   
@@ -17,7 +17,7 @@ import {
       <>
         <UserHeader />
         {/* Page content */}
-        <Container className="mt--7" fluid>
+        <Container className="mt-5" fluid>
           <Row>
             
           </Row>

@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
 import sys
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SECRET_KEY'] = 'MMOQLDpZOgsF1sFjx4nitkbheSNzPqGIt1+X3h1vPPQ='
@@ -27,7 +29,6 @@ from .views.r_messages import messages_app
 from .views.r_locations import locations_app
 from .views.r_notifications import notifications_app
 
-# db.create_all()
 migrate = Migrate(app, db)
 
 app.register_blueprint(system_app, url_prefix="/api/v1")

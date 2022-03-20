@@ -1,14 +1,14 @@
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    FormGroup,
-    Form,
-    Input,
+    // Button,
+    // Card,
+    // CardHeader,
+    // CardBody,
+    // FormGroup,
+    // Form,
+    // Input,
+    // Col,
     Container,
     Row,
-    Col,
   } from "reactstrap";
   import UserHeader from "components/Headers/UserHeader.js";
   
