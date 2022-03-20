@@ -5,9 +5,18 @@ import { Container, Row, Col } from "reactstrap";
 
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
+import authService from 'services/AuthService';
 import ENV from '.env.js';
 
 import routes from "routes.js";
+
+const AuthPager = () => {
+  authService.checkIsUserValid();
+  if (localStorage.getItem("userAuthVal") === 'true') {
+    return <Redirect to="/admin/index" />;
+  }
+  return<></>;
+}
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
@@ -44,6 +53,7 @@ const Auth = (props) => {
 
   return (
     <>
+      <AuthPager />
       <div className="main-content" ref={mainContent}>
         <AuthNavbar />
         <div className="header bg-gradient-info py-7 py-lg-8">

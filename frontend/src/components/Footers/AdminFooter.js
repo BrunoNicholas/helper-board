@@ -30,36 +30,6 @@ const Footer = () => {
                 Bruno Nicholas Sserunkuma
               </NavLink>
             </NavItem>
-
-            <NavItem>
-              <NavLink
-                href="https://dsnibro.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                About Me
-              </NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink
-                href="https://dsnibro.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Blog
-              </NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink
-                href="https://dsnibro.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                MIT License
-              </NavLink>
-            </NavItem>
           </Nav>
         </Col>
       </Row>

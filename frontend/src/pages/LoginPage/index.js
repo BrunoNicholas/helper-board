@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Route, Redirect } from "react-router-dom";
 import authService from "services/AuthService";
 import swal from 'sweetalert';
 
@@ -36,7 +35,7 @@ const Login = () => {
     try {
       await authService.login(email, password)
       .then( (res) => {
-          // window.location.reload();
+          window.location.reload();
         },
         (error) => {
           console.log(error);
@@ -48,14 +47,9 @@ const Login = () => {
     }
   };
 
-  const pager = () => {
-    return <Redirect to="/admin/index" />;
-  }
-
   return (
     <>
       <Col lg="5" md="7">
-        { pager }
         <Card className="bg-secondary shadow border-0">
           {/* hidden social icons login */}
           <CardHeader className="bg-transparent pb-5 d-none">
