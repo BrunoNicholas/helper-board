@@ -1,17 +1,22 @@
 function authHeader() {
     const user = JSON.parse(localStorage.getItem("user"));
   
-    if (user && user.accessToken) {
-        return { "x-access-token": user.accessToken };
+    if (user && user.token) {
+        return {
+            'x-access-token': user.token,
+            'Content-Type': 'application-json'
+        };
     } else {
-        return {};
+        return {
+            'Content-Type': 'application-json'
+        };
     }
 }
 
 const APIEndpoints = {
     baseURL: 'http://localhost:5050',
     section: '/api/v1',
-    headers: authHeader(),
+    headers: authHeader,
     routes: {
         login: '/login',
         register: '/signup',

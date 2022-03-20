@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
 import sys
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SECRET_KEY'] = 'MMOQLDpZOgsF1sFjx4nitkbheSNzPqGIt1+X3h1vPPQ='
