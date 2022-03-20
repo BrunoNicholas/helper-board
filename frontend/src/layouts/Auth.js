@@ -19,6 +19,7 @@ const Auth = (props) => {
       document.body.classList.remove("bg-default");
     };
   }, []);
+  
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;

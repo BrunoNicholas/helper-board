@@ -131,14 +131,24 @@ def login():
             'exp': datetime.utcnow() + timedelta(minutes=60)
         }, app.config['SECRET_KEY'])
 
+        chat_user = {}
+        location = {}
+        messages = {}
+
         return jsonify({
             'message': 'Logged in successfully. Welcome back {}'.format(user.name),
             'user': {
                 'name': user.name,
                 'email': user.email,
-                'is_admin': user.is_admin,
-                'is_developer': user.is_dev,
-                'is_student': user.is_student,
+                'admin': True if user.is_admin else False,
+                'developer': True if user.is_dev else False,
+                'student': True if user.is_student else False,
+                'status': user.status,
+                'in_chat': True if user.active_person else False,
+                'chat_user': chat_user,
+                'location': location,
+                'messages': messages,
+                'deleted': True if user.deleted_at else False,
                 'created': user.created_at,
                 'last_update': user.updated_at
             },
