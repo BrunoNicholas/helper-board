@@ -100,7 +100,7 @@ def login():
     if not data or not data.get('email') or not data.get('password'):
         return jsonify({
             'errors': errors
-        }), 400
+        }), 200
 
     user = User.query.filter_by(email=data.get('email')).first()
 

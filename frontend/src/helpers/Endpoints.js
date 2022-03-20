@@ -1,16 +1,16 @@
-function authHeader() {
-    const user = JSON.parse(localStorage.getItem("user"));
-  
-    if (user && user.token) {
-        return {
-            'x-access-token': user.token,
-            'Content-Type': 'application-json'
-        };
-    } else {
-        return {
-            'Content-Type': 'application-json'
-        };
-    }
+const storedStr = localStorage.getItem("user");
+const user = JSON.parse(storedStr);
+let authHeader = {}
+
+if (storedStr && user && user.token) {
+    authHeader = {
+        'x-access-token': user.token,
+        'Content-Type': 'application-json'
+    };
+} else {
+    authHeader = {
+        'Content-Type': 'application-json'
+    };
 }
 
 const APIEndpoints = {

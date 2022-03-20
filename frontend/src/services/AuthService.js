@@ -4,17 +4,19 @@ import Endpoints from 'helpers/Endpoints';
 const API_URL = Endpoints.baseURL + Endpoints.section;
 
 const signup = (email, password) => {
-    return axios.post(API_URL + Endpoints.routes.register, {
-        email,
-        password,
-    }, { headers: Endpoints.authHeader })
+    return axios.post(API_URL + Endpoints.routes.register, 
+        {email, password},
+        { headers: Endpoints.headers }
+    )
     .then((response) => {
-        if (response.data.accessToken) {
+        console.log(response);
+        if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
         }
         return response.data;
     })
-    .catch(() => {
+    .catch((ee) => {
+        // console.log(ee);
         alert('signup failed');
     });
 };
@@ -25,20 +27,19 @@ const login = (email, password) => {
     console.log("Data");
     console.log(`EMAIL: ${email}, PASSWORD: ${password}`);
     console.log("Headers");
-    console.log(Endpoints.authHeader);
-    return axios.post(API_URL + Endpoints.routes.login, {
-        email,
-        password,
-    }, { headers: Endpoints.authHeader })
+    console.log(Endpoints.headers);
+    return axios.post(API_URL + Endpoints.routes.login,
+        { 'email': email, 'password': password },
+        { headers: Endpoints.headers }
+    )
     .then((response) => {
         console.log(response);
-        if (response.data.accessToken) {
+        if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
         }
         return response.data;
     })
-    .catch((ee) => {
-        console.log(ee)
+    .catch(() => {
         alert('authentication failed');
     });
 };
