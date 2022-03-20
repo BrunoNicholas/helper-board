@@ -35,9 +35,10 @@ def get_all_locations(current_user):
 @locations_app.route('/locations', methods=['POST'])
 @token_required
 def store_location():
-    if request.headers.get('Content-Type') is 'application-json':
-        data = request.json
-    else:
-        data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
 
     pass

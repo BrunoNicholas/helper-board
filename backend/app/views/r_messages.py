@@ -47,9 +47,10 @@ def get_all_messages(current_user):
 @messages_app.route('/messages', methods=['POST'])
 @token_required
 def store_message():
-    if request.headers.get('Content-Type') is 'application-json':
-        data = request.json
-    else:
-        data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
 
     pass

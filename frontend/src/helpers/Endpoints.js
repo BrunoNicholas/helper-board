@@ -5,11 +5,11 @@ let authHeader = {}
 if (storedStr && user && user.token) {
     authHeader = {
         'x-access-token': user.token,
-        'Content-Type': 'application-json'
+        'Content-Type': 'application/json'
     };
 } else {
     authHeader = {
-        'Content-Type': 'application-json'
+        'Content-Type': 'application/json'
     };
 }
 

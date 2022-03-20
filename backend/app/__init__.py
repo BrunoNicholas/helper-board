@@ -29,7 +29,6 @@ from .views.r_messages import messages_app
 from .views.r_locations import locations_app
 from .views.r_notifications import notifications_app
 
-# db.create_all()
 migrate = Migrate(app, db)
 
 app.register_blueprint(system_app, url_prefix="/api/v1")

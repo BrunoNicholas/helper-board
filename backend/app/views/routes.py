@@ -70,10 +70,12 @@ def get_login():
 # route for logging user in
 @system_app.route('/login', methods=['POST'])
 def login():
-    if request.headers.get('Content-Type') is 'application-json':
-        data = request.json
-    else:
-        data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
+
     errors = []
 
     if 'x-access-token' in request.headers:
@@ -85,19 +87,26 @@ def login():
             if current_user:
                 return jsonify({
                     'message': 'Hey {}, you are already logged in.'.format(current_user.name)
-                }), 301
+                }), 202
 
         except jwt.ExpiredSignature:
             pass
 
     if not data:
         errors.append({'input': ['No content is submitted']})
+        return jsonify({
+            'errors': errors
+        }), 206
 
     if not data.get('email'):
-        errors.append({'email': ['Your email is required']})
+        errors.append({
+            'email': ['Your email is required']
+        })
 
     if not data.get('password'):
-        errors.append({'password': ['Your password is required']})
+        errors.append({
+            'password': ['Your password is required']
+        })
 
     if not data or not data.get('email') or not data.get('password'):
         return jsonify({
@@ -113,10 +122,10 @@ def login():
                     'email': ['No user found with that email, create a new account']
                 }
             ]
-        }), 404
+        }), 203
 
     if check_password_hash(user.password, data.get('password')):
-        # generates the JWT Token
+        # generates the JWT Token, expire in 1 hour
         token = jwt.encode({
             'public_id': user.public_id,
             'exp': datetime.utcnow() + timedelta(minutes=60)
@@ -137,21 +146,20 @@ def login():
         }), 201
 
     return jsonify({
-        'errors': [
-            {
-                'password': ['Invalid password provided. Please try again']
-            }
-        ]
-    }), 401
+        'errors': [{
+            'password': ['Invalid password provided. Please try again']
+        }]
+    }), 203
 
 
 # signup route
 @system_app.route('/signup', methods=['POST'])
 def signup():
-    if request.headers.get('Content-Type') is 'application-json':
-        data = request.json
-    else:
-        data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
 
     errors = []
 
@@ -167,7 +175,7 @@ def signup():
     if not data or not data.get('name') or not data.get('email') or not data.get('password'):
         return jsonify({
             'errors': errors
-        }), 400
+        }), 206
 
     name, email = data.get('name'), data.get('email')
     password = data.get('password')

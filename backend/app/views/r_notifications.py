@@ -47,9 +47,10 @@ def get_all_notifications(current_user):
 @notifications_app.route('/notifications', methods=['POST'])
 @token_required
 def store_location():
-    if request.headers.get('Content-Type') is 'application-json':
-        data = request.json
-    else:
-        data = request.form
+    # if request.headers.get('Content-Type') is 'application/json':
+    #     data = request.json
+    # else:
+    #     data = request.form
+    data = request.json
 
     pass

@@ -1,5 +1,6 @@
 import axios from "axios";
 import Endpoints from 'helpers/Endpoints';
+import swal from 'sweetalert';
 
 const API_URL = Endpoints.baseURL + Endpoints.section;
 
@@ -31,10 +32,20 @@ const login = (email, password) => {
         if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
         }
+        if (response.data.message) {
+            swal("Success", response.data.message, "success");
+        }
+        // if(response.data.errors) {
+        //     let errMsg = '';
+        //     // response.data.errors.forEach(function(item){
+        //     //     errMsg = errMsg + `- ${item}\n`;
+        //     // });
+        //     swal("Validation errors", errMsg, "error");
+        // }
         return response.data;
     })
     .catch(() => {
-        alert('authentication failed');
+        swal("Connection Error", "There is an error with the connection, Please contact the administrator to fix it", "error");
     });
 };
 

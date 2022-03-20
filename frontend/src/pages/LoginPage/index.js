@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import authService from "services/AuthService";
+import swal from 'sweetalert';
 
 import {
   Button,
@@ -27,18 +28,18 @@ const Login = () => {
   const handleLogin = async(e) => {
     e.preventDefault();
     if(!email) {
-      alert('Email is required');
+      swal("Please enter your EMAIL address to proceed");
       return;
     }
     if(!password) {
-      alert('Password is required');
+      swal("Please enter your PASSWORD address to proceed");
       return;
     }
     try {
       await authService.login(email, password)
       .then( (res) => {
         console.log(res)
-        // navigate("/auth/index");
+        // navigate("/admin/index");
           // window.location.reload();
         },
         (error) => {
