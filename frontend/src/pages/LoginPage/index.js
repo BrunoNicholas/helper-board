@@ -35,7 +35,9 @@ const Login = () => {
     try {
       await authService.login(email, password)
       .then( (res) => {
-          window.location.reload();
+          setTimeout(function(){
+            window.location.reload();
+          },500);
         },
         (error) => {
           console.log(error);

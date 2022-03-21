@@ -102,7 +102,7 @@ const Index = () => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Page visits</h3>
+                    <h3 className="mb-0">Previous notifications</h3>
                   </div>
                   <div className="col text-right">
                     <Button

@@ -1,6 +1,70 @@
 import axios from "axios";
 import Endpoints from 'helpers/Endpoints';
 import swal from 'sweetalert';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const createNotification = (type, msg='', posn='top-left', tym=3000) => {
+    return () => {
+        switch (type) {
+            case 'info':
+                toast.info(msg, {
+                    position: "top-left",
+                    autoClose: tym,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                break;
+            case 'success':
+                toast.success(msg, {
+                    position: "top-left",
+                    autoClose: tym,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                break;
+            case 'warning':
+                toast.warn(msg, {
+                    position: "top-left",
+                    autoClose: tym,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                break;
+            case 'error':
+                toast.error(msg, {
+                    position: "top-left",
+                    autoClose: tym,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                break;
+            default:
+                toast(msg, {
+                    position: "top-left",
+                    autoClose: tym,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                break;
+        }
+    };
+};
 
 const API_URL = Endpoints.baseURL + Endpoints.section;
 
@@ -87,7 +151,8 @@ const checkIsUserValid = () => {
             gotUser.user = res.data;
             localStorage.setItem("user", JSON.stringify(gotUser));
 
-            swal(`Hello ${gotUser.user.name}`, "Welcome back!", "success");
+            // swal(`Hello ${gotUser.user.name}`, "Welcome back!", "success");
+            createNotification('success',`Hello ${gotUser.user.name}, Welcome back! success`);
             
             localStorage.setItem("userAuthVal", 'true');
         }
@@ -112,7 +177,8 @@ const authService = {
     login,
     logout,
     getCurrentUser,
-    checkIsUserValid
+    checkIsUserValid,
+    createNotification
 };
 
 export default authService;
