@@ -44,10 +44,10 @@ const Login = () => {
     try {
       await authService.login(email, password)
       .then( (res) => {
+          <RouterCheck />
           setTimeout(function(){
-            <RouterCheck />
             window.location.reload();
-          },500);
+          },3000);
         },
         (error) => {
           console.log(error);

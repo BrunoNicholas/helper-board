@@ -19,6 +19,11 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+  
+  const handleLogout = () => {
+    return authService.logout();
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -70,7 +75,7 @@ const AdminNavbar = (props) => {
                   <span>My profile</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="/admin/logout" onClick={(e) => e.preventDefault()}>
+                <DropdownItem href="/auth/login" onClick={handleLogout}>
                   <i className="ni ni-user-run" />
                   <span>Logout</span>
                 </DropdownItem>
