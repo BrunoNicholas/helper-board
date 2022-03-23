@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import authService from "services/AuthService";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import swal from 'sweetalert';
 
 import {
@@ -16,6 +17,14 @@ import {
   Row,
   Col,
 } from "reactstrap";
+
+function RouterCheck() {
+  authService.checkIsUserValid();
+  if (localStorage.getItem("userAuthVal") === 'true') {
+    return <Redirect from="/" to="/admin/index" />;
+  }
+  return <Redirect from="/" to="/auth/login" />;
+}
   
 const Login = () => {
 
@@ -51,6 +60,7 @@ const Login = () => {
 
   return (
     <>
+      <RouterCheck />
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           {/* hidden social icons login */}

@@ -65,7 +65,8 @@ const Sidebar = (props) => {
             </NavLink>
           </NavItem>
         );
-      }
+      } 
+      // return<></>;
     });
   };
 
