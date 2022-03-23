@@ -23,7 +23,7 @@ function RouterCheck() {
   if (localStorage.getItem("userAuthVal") === 'true') {
     return <Redirect from="/" to="/admin/index" />;
   }
-  return <Redirect from="/" to="/auth/login" />;
+  return <></>;
 }
   
 const Login = () => {
@@ -45,6 +45,7 @@ const Login = () => {
       await authService.login(email, password)
       .then( (res) => {
           setTimeout(function(){
+            <RouterCheck />
             window.location.reload();
           },500);
         },
@@ -60,7 +61,6 @@ const Login = () => {
 
   return (
     <>
-      <RouterCheck />
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           {/* hidden social icons login */}
