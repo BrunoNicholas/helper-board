@@ -1,3 +1,8 @@
+import React, { useState } from "react";
+import authService from "services/AuthService";
+import { Redirect } from "react-router-dom";
+import swal from 'sweetalert';
+
 import {
     Button,
     Card,
@@ -14,11 +19,52 @@ import {
   } from "reactstrap";
   
   const Register = () => {
+
+    function RouterCheck() {
+      authService.checkIsUserValid();
+      if (localStorage.getItem("userAuthVal") === 'true') {
+        return <Redirect from="/" to="/auth/login" />;
+      }
+      return <></>;
+    }
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSignUp = async(e) => {
+      e.preventDefault();
+      if(!name) {
+        swal("Please enter your Name address to proceed");
+        return;
+      }
+      if(!email) {
+        swal("Please enter your EMAIL address to proceed");
+        return;
+      }
+        if(!password) {
+          swal("Please enter your PASSWORD address to proceed");
+          return;
+        }
+        try {
+          await authService.register(name,email, password)
+          .then( (res) => {
+              <RouterCheck />
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
+        catch (err) {
+          console.log(err);
+        }
+    }
     return (
       <>
         <Col lg="6" md="8">
           <Card className="bg-secondary shadow border-0">
-            <CardHeader className="bg-transparent pb-5">
+            <CardHeader className="bg-transparent pb-5 d-none">
               <div className="text-muted text-center mt-2 mb-4">
                 <small>Sign up with</small>
               </div>
@@ -59,11 +105,12 @@ import {
                 </Button>
               </div>
             </CardHeader>
+
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
-                <small>Or sign up with credentials</small>
+                <small>Sign up with credentials</small>
               </div>
-              <Form role="form">
+              <Form role="form" onSubmit={handleSignUp}>
                 <FormGroup>
                   <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
@@ -71,7 +118,11 @@ import {
                         <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Name" type="text" />
+                    <Input
+                      placeholder="Name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)} />
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -85,6 +136,8 @@ import {
                       placeholder="Email"
                       type="email"
                       autoComplete="new-email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -99,6 +152,8 @@ import {
                       placeholder="Password"
                       type="password"
                       autoComplete="new-password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -131,7 +186,7 @@ import {
                   </Col>
                 </Row>
                 <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button">
+                  <Button className="mt-4" color="primary" type="submit">
                     Create account
                   </Button>
                 </div>

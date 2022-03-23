@@ -68,21 +68,57 @@ const createNotification = (type, msg='', posn='top-left', tym=3000) => {
 
 const API_URL = Endpoints.baseURL + Endpoints.section;
 
-const signup = (email, password) => {
+const register = (name,email, password) => {
     return axios.post(API_URL + Endpoints.routes.register, 
-        {email, password},
+        {'name': name, 'email': email, 'password': password},
         { headers: Endpoints.headers }
     )
     .then((response) => {
         console.log(response);
+
         if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
+            setTimeout(function(){
+                window.location.reload();
+            },3000);
         }
+        if(response.data.errors) {
+            let errMsg = ``;
+            response.data.errors.forEach(function(err){
+                if (err.name) {
+                    errMsg = errMsg + `Name\n`;
+                    for (let i = 0; i < err.name.length; i++) {
+                        errMsg = errMsg + `- ${err.name[i]}\n`;
+                    }
+                    console.log('ITEMS: ', errMsg);
+                }
+        
+                if (err.email) {
+                    errMsg = errMsg + `Email\n`;
+                    for (let i = 0; i < err.email.length; i++) {
+                        errMsg = errMsg + `- ${err.email[i]}\n`;                  
+                    }
+                    console.log('ITEMS: ', errMsg);
+                }
+
+                if (err.password) {
+                    errMsg = errMsg + `Password\n`;
+                    for (let i = 0; i < err.password.length; i++) {
+                        errMsg = errMsg + `- ${err.password[i]}\n`;
+                    }
+                    console.log('ITEMS: ', errMsg);
+                }
+            });
+            swal("Validation errors", errMsg, "error");
+        }
+        else if (response.data.message) {
+            swal("Success", response.data.message, "success");
+        }
+
         return response.data;
     })
     .catch((ee) => {
-        // console.log(ee);
-        alert('signup failed');
+        console.log(ee);
     });
 };
 
@@ -176,7 +212,7 @@ const checkIsUserValid = () => {
 }
 
 const authService = {
-    signup,
+    register,
     login,
     logout,
     getCurrentUser,
