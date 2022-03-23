@@ -42,7 +42,7 @@ use ```flask db upgrade``` to do the actual migrations
 Now you can run
 
 ```bash
-python app.py
+flask run
 ```
 
 To run the local server which the frontend will listen to
