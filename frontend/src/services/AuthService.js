@@ -95,7 +95,9 @@ const login = (email, password) => {
         console.log(response);
         if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
-            window.location.reload();
+            setTimeout(function(){
+                window.location.reload();
+            },3000);
         }
         if(response.data.errors) {
             let errMsg = ``;
