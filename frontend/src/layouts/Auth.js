@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
+import { ToastContainer } from 'react-toastify';
 import authService from 'services/AuthService';
 import ENV from '.env.js';
 
@@ -54,6 +55,7 @@ const Auth = (props) => {
   return (
     <>
       <AuthPager />
+      <ToastContainer />
       <div className="main-content" ref={mainContent}>
         <AuthNavbar />
         <div className="header bg-gradient-info py-7 py-lg-8">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import authService from "services/AuthService";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import swal from 'sweetalert';
 
 import {
@@ -16,6 +17,14 @@ import {
   Row,
   Col,
 } from "reactstrap";
+
+function RouterCheck() {
+  authService.checkIsUserValid();
+  if (localStorage.getItem("userAuthVal") === 'true') {
+    return <Redirect from="/" to="/admin/index" />;
+  }
+  return <></>;
+}
   
 const Login = () => {
 
@@ -36,6 +45,7 @@ const Login = () => {
       await authService.login(email, password)
       .then( (res) => {
           setTimeout(function(){
+            <RouterCheck />
             window.location.reload();
           },500);
         },

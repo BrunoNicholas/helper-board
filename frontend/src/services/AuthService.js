@@ -1,7 +1,7 @@
 import axios from "axios";
 import Endpoints from 'helpers/Endpoints';
 import swal from 'sweetalert';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const createNotification = (type, msg='', posn='top-left', tym=3000) => {
